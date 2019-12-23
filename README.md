@@ -1,6 +1,6 @@
 # EvolutionGenerator
 
-##Starting paramters can be found in config file. Filelds in file are:
+## Starting paramters can be found in config file. Filelds in file are:
 
 - `witdh` - the map will have x coordinate from 0 to width
 - `height` - the map will have y coordiante from 0 to height
