@@ -132,7 +132,7 @@ public class JungleMap extends AbstractMap {
 
                 eatenPlantsPositions.add(position);
 
-                //System.out.println("I'm eaten" + plant.getPosition()) ;
+                System.out.println("I'm eaten" + plant.getPosition()) ;
 
                 LinkedList<Animal> animalsOnField = animals.get(position);//There can't be nothing more on list since plant is removed
                 LinkedList<Animal> animalsToFeed = new LinkedList<>();
@@ -217,7 +217,7 @@ public class JungleMap extends AbstractMap {
     }
 
     @Override
-    public Vector2d validatePosition(Vector2d position) {
+    public Vector2d validatePosition(Vector2d position) { // if animal go out of map it will appear on the other side
         if (position.x > this.width && position.y > this.height) return new Vector2d(0, 0);
         else if (position.x > this.width && position.y < 0) return new Vector2d(0, this.height);
         else if (position.x < 0 && position.y < 0) return new Vector2d(this.width, this.height);

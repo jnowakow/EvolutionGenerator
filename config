@@ -1,0 +1,11 @@
+{
+  "days" : 5,
+  "width" : 5,
+  "height" : 5,
+  "jungleRatio" : 0.25, 
+  "initialPlantsCount" : 4,
+  "initialAnimalsCount" : 4,
+  "animalMoveCost" : 1,
+  "animalInitialEnergy" : 5,
+  "energyFromPlant" : 1,
+}

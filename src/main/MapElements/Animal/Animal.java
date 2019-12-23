@@ -61,7 +61,7 @@ public class Animal implements IMapElement {
         this.energyLevel -= 0.25*this.energyLevel;
         other.energyLevel -= 0.25*other.energyLevel;
 
-        //System.out.println("miracle of nature " + child.getPosition() + " " + child.getEnergyLevel());
+        System.out.println("New animal born " + child.getPosition() + " " + child.getEnergyLevel());
         return child;
     }
 
