@@ -95,11 +95,4 @@ public class SimulationParameters{
         return plantsInSteppeSpawn;
     }
 
-    public int getPlantsInJungleSpawn() {
-        return plantsInJungleSpawn;
-    }
-
-    public int getPlantsInSteppeSpawn() {
-        return plantsInSteppeSpawn;
-    }
 }
