@@ -5,11 +5,14 @@ import Map.IWorldMap;
 import MapElements.IMapElement;
 import MapElements.PositonDefinition.MapDirection;
 import MapElements.PositonDefinition.Vector2d;
+import javafx.scene.paint.Color;
+
 
 import java.util.LinkedList;
 import java.util.Random;
 
 public class Animal implements IMapElement {
+    private static int maxEnergy;
     private Vector2d position;
     private MapDirection direction;
     public int childrenCount = 0;
@@ -31,6 +34,7 @@ public class Animal implements IMapElement {
         int x = random.nextInt(mapWidth+1);
         int y = random.nextInt(mapHeight+1);
         this.position = new Vector2d(x,y);
+        this.maxEnergy = initialEnergy;
         this.energyLevel = initialEnergy;
         this.genome = new Genes();
     }
@@ -61,7 +65,10 @@ public class Animal implements IMapElement {
         this.energyLevel -= 0.25*this.energyLevel;
         other.energyLevel -= 0.25*other.energyLevel;
 
-        System.out.println("New animal born " + child.getPosition() + " " + child.getEnergyLevel());
+        this.childrenCount++;
+        other.childrenCount++;
+
+        //System.out.println("New animal born " + child.getPosition() + " " + child.getEnergyLevel());
         return child;
     }
 
@@ -106,6 +113,18 @@ public class Animal implements IMapElement {
     public int getEnergyLevel() { return this.energyLevel; }
 
 
+    public Color toColor(){
+        if(this.energyLevel >= this.maxEnergy * 0.66){
+            return Color.BLUE;
+        }
+        else if(this.energyLevel >= this.maxEnergy * 0.33){
+            return  Color.AQUA;
+        }
+        else {
+            return Color.ALICEBLUE;
+        }
+    }
+
     @Override
     public String toString(){
         switch (this.direction){
@@ -121,4 +140,7 @@ public class Animal implements IMapElement {
         }
     }
 
+    public int getChildrenCount() {
+        return childrenCount;
+    }
 }

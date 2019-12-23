@@ -23,6 +23,8 @@ public class SimulationParameters{
     private int animalMoveCost;
     private int animalInitialEnergy;
     private int energyFromPlant;
+    private int plantsInJungleSpawn;
+    private int plantsInSteppeSpawn;
 
     public SimulationParameters (String fileName) {
 
@@ -51,6 +53,8 @@ public class SimulationParameters{
         animalMoveCost = (int) (long) jo.get("animalMoveCost");
         animalInitialEnergy = (int) (long) jo.get("animalInitialEnergy");
         energyFromPlant = (int) (long) jo.get("energyFromPlant");
+        plantsInJungleSpawn = (int) (long) jo.get("plantsInJungleSpawn");
+        plantsInSteppeSpawn = (int) (long) jo.get("plantsInSteppeSpawn");
     }
 
     public int getWidth() {
@@ -87,5 +91,13 @@ public class SimulationParameters{
 
     public int getDaysCount() {
         return daysCount;
+    }
+
+    public int getPlantsInJungleSpawn() {
+        return plantsInJungleSpawn;
+    }
+
+    public int getPlantsInSteppeSpawn() {
+        return plantsInSteppeSpawn;
     }
 }
