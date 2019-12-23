@@ -94,4 +94,12 @@ public class SimulationParameters{
     public int getPlantsInSteppeSpawn() {
         return plantsInSteppeSpawn;
     }
+
+    public int getPlantsInJungleSpawn() {
+        return plantsInJungleSpawn;
+    }
+
+    public int getPlantsInSteppeSpawn() {
+        return plantsInSteppeSpawn;
+    }
 }
