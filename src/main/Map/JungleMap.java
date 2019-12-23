@@ -4,6 +4,7 @@ import MapElements.Animal.Animal;
 import MapElements.IMapElement;
 import MapElements.Plant;
 import MapElements.PositonDefinition.Vector2d;
+import Visualization.GUIMap;
 import javafx.util.Pair;
 
 import java.util.*;
@@ -12,17 +13,24 @@ public class JungleMap extends AbstractMap {
     private final int width;
     private final int height;
     private final int jungleArea;
-    private final Vector2d lowerLeftJunglePosition;
-    private final Vector2d higherRightJunglePosition;
+    public final Vector2d lowerLeftJunglePosition;
+    public final Vector2d higherRightJunglePosition;
     private final int energyLoss;
     private final int initialEnergy;
     private final int energyFromPlant;
+    private final int plantsInJungleSpawn;
+    private final int plantsInSteppeSpawn;
 
 
-    public JungleMap(int width, int height, double jungleRatio, int initialPlantCount, int initialAnimalCount, int energyLoss, int initialEnergy, int energyFromPlant) {
+    private List<GUIMap> visualizer = new LinkedList<>();
+
+
+    public JungleMap(int width, int height, double jungleRatio, int initialPlantCount, int initialAnimalCount, int energyLoss, int initialEnergy, int energyFromPlant, int plantsInJungleSpawn, int plantsInSteppeSpawn) {
         this.energyLoss = energyLoss;
         this.initialEnergy = initialEnergy;
         this.energyFromPlant = energyFromPlant;
+        this.plantsInJungleSpawn = plantsInJungleSpawn;
+        this.plantsInSteppeSpawn = plantsInSteppeSpawn;
 
         this.width = width;
         this.height = height;
@@ -33,6 +41,7 @@ public class JungleMap extends AbstractMap {
 
         this.lowerLeftJunglePosition = new Vector2d((width - jungleWidth) / 2, (height - jungleHeight) / 2);
         this.higherRightJunglePosition = new Vector2d((width + jungleWidth) / 2, (height + jungleHeight) / 2);
+
 
         while (initialAnimalCount > 0) {
             Animal animal = new Animal(this.width, this.height, this.initialEnergy);
@@ -112,11 +121,12 @@ public class JungleMap extends AbstractMap {
         //remove dead animals
         LinkedList<Animal> deadAnimals = new LinkedList<>();
 
-        animalsList.forEach(animal -> { if (animal.isDead()) { deadAnimals.add(animal); }});
+        animalsList.forEach(animal -> { if (animal.isDead()) {
+            deadAnimals.add(animal);
+        }});
 
-        deadAnimals.forEach(animal -> {animals.remove(animal);
+        deadAnimals.forEach(animal -> {animalsList.remove(animal);
             animals.get(animal.getPosition()).remove(animal);});
-
         //move each animals
         animalsList.forEach(animal -> animal.move(this, energyLoss));
 
@@ -132,7 +142,7 @@ public class JungleMap extends AbstractMap {
 
                 eatenPlantsPositions.add(position);
 
-                System.out.println("I'm eaten" + plant.getPosition()) ;
+                //System.out.println("I'm eaten" + plant.getPosition()) ;
 
                 LinkedList<Animal> animalsOnField = animals.get(position);//There can't be nothing more on list since plant is removed
                 LinkedList<Animal> animalsToFeed = new LinkedList<>();
@@ -170,8 +180,13 @@ public class JungleMap extends AbstractMap {
 
 
         //add new plants to map
-        putPlantInJungle();
-        putPlantInSteppe();
+        for(int i=0; i < plantsInJungleSpawn; i++){
+            putPlantInJungle();
+        }
+        for (int i = 0; i < plantsInSteppeSpawn; i++){
+            putPlantInSteppe();
+
+        }
 
     }
 
@@ -214,6 +229,10 @@ public class JungleMap extends AbstractMap {
         int i = random.nextInt(3) - 1;
         int j = random.nextInt(3) - 1;
         return validatePosition(new Vector2d(position.x + i, position.y + j));
+    }
+
+    public void addVisualizer (GUIMap vis) {
+        this.visualizer.add(vis);
     }
 
     @Override
